@@ -17,7 +17,7 @@ var obj = {
 
 // basic usage
 console.log(deep(obj, 'a.b.c.d.0') === 6)
-console.log(deep(obj, 'a.b.c.d.1.2') === 8)
+console.log(deep(obj, 'a.b.c.d.1.1') === 8)
 
 // attach
 obj.deep = deep
