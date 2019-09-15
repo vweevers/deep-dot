@@ -1,5 +1,7 @@
 # deep-dot
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/vweevers/deep-dot.svg)](https://greenkeeper.io/)
+
 Get a nested property of an object or primitive.
 
 ## examples
