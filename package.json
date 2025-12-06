@@ -1,10 +1,14 @@
 {
   "name": "deep-dot",
   "version": "0.0.2",
-  "description": "Get a nested property of an object or array",
+  "description": "Get and set nested properties of objects and arrays",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"
+  },
+  "dependencies": {
+    "module-error": "^1.0.2"
   },
   "devDependencies": {
     "tape": "^5.9.0"
