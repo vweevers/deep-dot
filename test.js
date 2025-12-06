@@ -1,20 +1,5 @@
 var test = require('tape')
-  , deep = require('./')
-
-test('on proto', function(t){
-  function Item(bar) {
-    this.foo.x.bar = bar
-  }
-
-  Item.prototype.deep = deep
-  Item.prototype.foo = {x: {}}
-
-  var item = new Item(40)
-  t.deepEqual(item.deep('foo'), {x: {bar: 40}})
-  t.equal(item.deep('foo.x.bar'), 40)
-  t.equal(deep(item, 'foo.x.bar'), 40)
-  t.end()
-})
+var deep = require('./')
 
 test('undefined value', function(t){
   var o = { a: {b: 10} }
@@ -26,8 +11,6 @@ test('undefined value', function(t){
 test('invalid prop throws', function(t){
   t.throws(deep)
   t.throws(function(){ deep({})})
-  global_hm = 'woa'
-  t.throws(function(){ deep('global_hm', undefined)})
   t.end()
 })
 
@@ -48,11 +31,5 @@ test('weird stuff', function(t){
   t.equal(deep(o, 's.0'), 's')
   t.equal(deep(o, 'a.1'), 30)
   t.equal(deep([1,2,3], [2]), 3)
-  t.end()
-})
-
-test('global', function(t){
-  window = { location: { hash: '#top' }}
-  t.equal(deep('window.location.hash'), '#top')
   t.end()
 })

@@ -1,10 +1,6 @@
 module.exports = deep
 
-function deep (obj_, prop_) {
-  // Ensure fn can be optimized
-  if (arguments.length==1) var prop = obj_, obj = this
-  else obj = obj_, prop = prop_
-
+function deep (obj, prop) {
   if (typeof prop == 'string') var segs = prop.split('.')
   else if (!prop || !prop.slice) throw new Error('Invalid property')
   else segs = prop.slice()

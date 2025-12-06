@@ -19,18 +19,11 @@ var obj = {
 console.log(deep(obj, 'a.b.c.0') === 6)
 console.log(deep(obj, 'a.b.c.1.1') === 8)
 
-// attach
-obj.deep = deep
-
 // non existent
 console.log(obj.deep('x.y') == null)
 
 // array path
 console.log(obj.deep(['a', 'b']))
-
-// cute side-effects
-console.log(deep('window.location'))
-console.log(deep(['a','b','c'], [2]) === 'c')
 ```
 
 ## install
