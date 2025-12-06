@@ -39,6 +39,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/vweevers/deep-dot"
+    "url": "git+https://github.com/vweevers/deep-dot.git"
   }
 }
