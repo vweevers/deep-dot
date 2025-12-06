@@ -1,5 +1,6 @@
 var test = require('tape')
-var deep = require('./')
+var { DeepDot } = require('./')
+var deep = new DeepDot().get
 
 test('undefined value', function(t){
   var o = { a: {b: 10} }

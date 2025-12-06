@@ -5,7 +5,8 @@ Get a nested property of an object or array.
 ## examples
 
 ```js
-var deep = require('deep-dot')
+const { DeepDot } = require('deep-dot')
+const dd = new DeepDot()
 
 var obj = {
   a: {
@@ -16,14 +17,14 @@ var obj = {
 }
 
 // basic usage
-console.log(deep(obj, 'a.b.c.0') === 6)
-console.log(deep(obj, 'a.b.c.1.1') === 8)
+console.log(dd.get(obj, 'a.b.c.0') === 6)
+console.log(dd.get(obj, 'a.b.c.1') === 78)
 
 // non existent
-console.log(obj.deep('x.y') === undefined)
+console.log(dd.get(obj, 'x.y') === undefined)
 
 // array path
-console.log(obj.deep(['a', 'b']))
+console.log(dd.get(obj, ['a', 'b']))
 ```
 
 ## install
