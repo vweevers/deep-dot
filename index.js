@@ -1,13 +1,16 @@
 module.exports = deep
 
 function deep (obj, prop) {
-  if (typeof prop == 'string') var segs = prop.split('.')
-  else if (!prop || !prop.slice) throw new Error('Invalid property')
-  else segs = prop.slice()
+  const segments = typeof prop == 'string'
+    ? prop.split('.')
+    : prop
 
-  while (segs.length && obj != null) {
-    obj = obj[segs.shift()]
+  let i = 0
+  const last = segments.length - 1
+
+  while (i <= last && obj != null) {
+    obj = obj[segments[i++]]
   }
 
-  return segs.length ? undefined : obj
+  return i <= last ? undefined : obj
 }
