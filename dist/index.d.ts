@@ -41,11 +41,14 @@ export class DeepDot {
    * `undefined` if a property along the path does not exist, including when
    * `target` itself is null or undefined.
    *
+   * The optional `offset` argument can be used to skip parts of the path.
+   *
    * @param {any} target
    * @param {string | (string | number)[]} path
+   * @param {number} [offset=0]
    * @returns {any}
    */
-  get: (target: any, path: string | (string | number)[]) => any
+  get: (target: any, path: string | (string | number)[], offset?: number) => any
   /**
    * Set a nested property in `target`. If properties along the path don't exist
    * they will be created. If a property does exist but is not an object
@@ -53,10 +56,18 @@ export class DeepDot {
    * thrown. If `target` itself is null or not an object, a
    * `DEEP_DOT_NOT_AN_OBJECT` error will be thrown.
    *
+   * The optional `offset` argument can be used to skip parts of the path.
+   *
    * @param {{}} target
    * @param {string | (string | number)[]} path
    * @param {any} value
+   * @param {number} [offset=0]
    * @returns {void}
    */
-  set: (target: {}, path: string | (string | number)[], value: any) => void
+  set: (
+    target: {},
+    path: string | (string | number)[],
+    value: any,
+    offset?: number,
+  ) => void
 }

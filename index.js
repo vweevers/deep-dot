@@ -71,16 +71,25 @@ class DeepDot {
    * `undefined` if a property along the path does not exist, including when
    * `target` itself is null or undefined.
    *
+   * The optional `offset` argument can be used to skip parts of the path.
+   *
    * @param {any} target
    * @param {string | (string | number)[]} path
+   * @param {number} [offset=0]
    * @returns {any}
    */
-  get = (target, path) => {
-    let i = 0
+  get = (target, path, offset = 0) => {
+    let i = offset
     let value = target
 
     const segments = this.parse(path)
     const last = segments.length - 1
+
+    if (last < offset) {
+      throw new ModuleError('Path is empty', {
+        code: 'DEEP_DOT_EMPTY_PATH'
+      })
+    }
 
     while (i <= last && typeof value === 'object' && value !== null) {
       const segment = segments[i++]
@@ -98,12 +107,15 @@ class DeepDot {
    * thrown. If `target` itself is null or not an object, a
    * `DEEP_DOT_NOT_AN_OBJECT` error will be thrown.
    *
+   * The optional `offset` argument can be used to skip parts of the path.
+   *
    * @param {{}} target
    * @param {string | (string | number)[]} path
    * @param {any} value
+   * @param {number} [offset=0]
    * @returns {void}
    */
-  set = (target, path, value) => {
+  set = (target, path, value, offset = 0) => {
     if (typeof target !== 'object' || target === null) {
       throw new ModuleError('Target must be an object', {
         code: 'DEEP_DOT_NOT_AN_OBJECT'
@@ -113,9 +125,15 @@ class DeepDot {
     const segments = this.parse(path)
     const last = segments.length - 1
 
+    if (last < offset) {
+      throw new ModuleError('Path is empty', {
+        code: 'DEEP_DOT_EMPTY_PATH'
+      })
+    }
+
     let parent = target
 
-    for (let i = 0; i <= last; i++) {
+    for (let i = offset; i <= last; i++) {
       const segment = segments[i]
       validateSegment(segment)
 
