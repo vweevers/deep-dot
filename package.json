@@ -1,6 +1,6 @@
 {
   "name": "deep-dot",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Get and set nested properties of objects and arrays",
   "author": "Vincent Weevers",
   "license": "MIT",
