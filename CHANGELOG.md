@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0] - 2025-12-06
+
+### Added
+
+- Add optional offset argument ([`2699295`](https://github.com/vweevers/deep-dot/commit/2699295)) (Vincent Weevers)
+
 ## [1.0.0] - 2025-12-06
 
 ### Changed
@@ -32,6 +38,8 @@
 ## [0.0.1] - 2015-01-01
 
 _:seedling: Initial release._
+
+[1.1.0]: https://github.com/vweevers/deep-dot/releases/tag/v1.1.0
 
 [1.0.0]: https://github.com/vweevers/deep-dot/releases/tag/v1.0.0
 
