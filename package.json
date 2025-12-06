@@ -2,24 +2,22 @@
   "name": "deep-dot",
   "version": "0.0.2",
   "description": "Get and set nested properties of objects and arrays",
+  "author": "Vincent Weevers",
+  "license": "MIT",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "node test.js"
   },
   "dependencies": {
     "module-error": "^1.0.2"
   },
-  "devDependencies": {
-    "tape": "^5.9.0"
-  },
   "keywords": [
+    "get",
     "nested",
     "deep",
     "property"
   ],
-  "author": "Vincent Weevers",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vweevers/deep-dot"

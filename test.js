@@ -1,71 +1,65 @@
 'use strict'
 
-var test = require('tape')
+var test = require('node:test')
+var assert = require('assert')
 var { DeepDot } = require('./')
-var deep = new DeepDot().get
+var get = new DeepDot().get
 
-test('get() undefined value', function(t){
+test('get() undefined value', function(){
   var o = { a: {b: 10} }
-  t.is(deep(o, 'a.b.c'), undefined)
-  t.ok(deep(o, 'a.b'))
-  t.end()
+  assert.equal(get(o, 'a.b.c'), undefined)
+  assert.ok(get(o, 'a.b'))
 })
 
-test('get() invalid key throws', function(t){
-  t.throws(deep)
-  t.throws(function(){ deep({})})
-  t.end()
+test('get() invalid path throws', function(){
+  assert.throws(get)
+  assert.throws(function(){ get({})})
 })
 
-test('get() array key', function(t){
+test('get() array path', function(){
   var o = { a: {b: 10} }
-  t.notOk(deep(o, ['a', 'b', 'c']))
-  t.ok(deep(o, ['a', 'b']))
-  t.is(deep([1, 2, 3], [2]), 3)
-  t.is(deep({ a: [20, 30] }, 'a.1'), 30)
+  assert.equal(get(o, ['a', 'b', 'c']), undefined)
+  assert.equal(get(o, ['a', 'b']), 10)
+  assert.equal(get([1, 2, 3], [2]), 3)
+  assert.equal(get({ a: [20, 30] }, 'a.1'), 30)
 
-  var key = ['a', 'b', 'c']
-  deep(o, key)
-  t.deepEqual(key, ['a', 'b', 'c'], 'does not mutate')
-  t.end()
+  var path = ['a', 'b', 'c']
+  get(o, path)
+  assert.deepEqual(path, ['a', 'b', 'c'], 'does not mutate')
 })
 
-test('set() string key', function (t) {
+test('set() string key', function () {
   var o = { a: { b: 1 } }
   var dd = new DeepDot()
 
   dd.set(o, 'a.b', 2)
-  t.same(o, { a: { b: 2 } })
+  assert.deepEqual(o, { a: { b: 2 } })
 
   dd.set(o, 'a.b2', 3)
-  t.same(o, { a: { b: 2, b2: 3 } })
+  assert.deepEqual(o, { a: { b: 2, b2: 3 } })
 
   dd.set(o, 'a.b3.x', 3)
-  t.same(o, { a: { b: 2, b2: 3, b3: { x: 3 } } })
+  assert.deepEqual(o, { a: { b: 2, b2: 3, b3: { x: 3 } } })
 
   dd.set(o, 'a', [1, 2])
-  t.same(o, { a: [1, 2] })
+  assert.deepEqual(o, { a: [1, 2] })
 
   dd.set(o, 'a.1', 3)
-  t.same(o, { a: [1, 3] })
+  assert.deepEqual(o, { a: [1, 3] })
 
   // Doesn't automatically create arrays
   dd.set(o, 'b.1', 42)
-  t.same(o, { a: [1, 3], b: { 1: 42 } })
-
-  t.end()
+  assert.deepEqual(o, { a: [1, 3], b: { 1: 42 } })
 })
 
-test('set() array key', function (t) {
+test('set() array key', function () {
   var o = { a: { b: 1 } }
   var dd = new DeepDot()
   dd.set(o, ['a', 'b'], 2)
-  t.same(o, { a: { b: 2 } })
-  t.end()
+  assert.deepEqual(o, { a: { b: 2 } })
 })
 
 test('set() cannot polute prototype', function (t) {
   var dd = new DeepDot()
-  t.throws(() => dd.set({}, 'prototype', {}), { code: 'DEEP_DOT_UNSAFE_PROPERTY' })
-  t.end()
+  assert.throws(() => dd.set({}, 'prototype', {}), { code: 'DEEP_DOT_UNSAFE_PROPERTY' })
 })
