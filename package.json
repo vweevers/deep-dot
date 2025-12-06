@@ -7,6 +7,11 @@
   "type": "commonjs",
   "main": "index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist/index.d.ts",
+    "CHANGELOG.md",
+    "index.js"
+  ],
   "scripts": {
     "test": "eslint && node test.js",
     "types": "tsc -p tsconfig.d.json && npm run types:format",
