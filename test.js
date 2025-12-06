@@ -3,7 +3,7 @@ var deep = require('./')
 
 test('undefined value', function(t){
   var o = { a: {b: 10} }
-  t.notOk(deep(o, 'a.b.c'))
+  t.is(deep(o, 'a.b.c'), undefined)
   t.ok(deep(o, 'a.b'))
   t.end()
 })

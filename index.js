@@ -9,5 +9,5 @@ function deep (obj, prop) {
     obj = obj[segs.shift()]
   }
 
-  return segs.length ? null : obj
+  return segs.length ? undefined : obj
 }

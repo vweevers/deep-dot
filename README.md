@@ -20,7 +20,7 @@ console.log(deep(obj, 'a.b.c.0') === 6)
 console.log(deep(obj, 'a.b.c.1.1') === 8)
 
 // non existent
-console.log(obj.deep('x.y') == null)
+console.log(obj.deep('x.y') === undefined)
 
 // array path
 console.log(obj.deep(['a', 'b']))
