@@ -1,6 +1,6 @@
 # deep-dot
 
-Get a nested property of an object or primitive.
+Get a nested property of an object or array.
 
 ## examples
 

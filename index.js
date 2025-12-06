@@ -8,7 +8,7 @@ function deep (obj, prop) {
   let i = 0
   const last = segments.length - 1
 
-  while (i <= last && obj != null) {
+  while (i <= last && typeof obj === 'object' && obj !== null) {
     obj = obj[segments[i++]]
   }
 
