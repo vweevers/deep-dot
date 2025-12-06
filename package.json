@@ -6,11 +6,25 @@
   "license": "MIT",
   "type": "commonjs",
   "main": "index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "node test.js"
+    "test": "eslint && node test.js",
+    "types": "tsc -p tsconfig.d.json && npm run types:format",
+    "types:format": "prettier --write --no-semi dist/index.d.ts"
   },
   "dependencies": {
     "module-error": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@voxpelli/tsconfig": "^16.1.0",
+    "eslint": "^9.39.1",
+    "neostandard": "^0.12.2",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "keywords": [
     "get",

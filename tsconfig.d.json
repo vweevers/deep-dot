@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "files": ["index.js"],
+  "compilerOptions": {
+    "declaration": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "removeComments": false,
+    "outDir": "dist"
+  }
+}

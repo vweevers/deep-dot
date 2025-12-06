@@ -1,0 +1,6 @@
+{
+  "extends": "@voxpelli/tsconfig/node20.json",
+  "compilerOptions": {
+    "noImplicitAny": false
+  }
+}

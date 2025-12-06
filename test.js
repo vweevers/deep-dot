@@ -1,36 +1,38 @@
 'use strict'
 
-var test = require('node:test')
-var assert = require('assert')
-var { DeepDot } = require('./')
-var get = new DeepDot().get
+const test = require('node:test')
+const assert = require('assert')
+const { DeepDot } = require('./')
+const get = new DeepDot().get
 
-test('get() undefined value', function(){
-  var o = { a: {b: 10} }
+test('get() undefined value', function () {
+  const o = { a: { b: 10 } }
   assert.equal(get(o, 'a.b.c'), undefined)
   assert.ok(get(o, 'a.b'))
 })
 
-test('get() invalid path throws', function(){
+test('get() invalid path throws', function () {
+  // @ts-expect-error
   assert.throws(get)
-  assert.throws(function(){ get({})})
+  // @ts-expect-error
+  assert.throws(function () { get({}) })
 })
 
-test('get() array path', function(){
-  var o = { a: {b: 10} }
+test('get() array path', function () {
+  const o = { a: { b: 10 } }
   assert.equal(get(o, ['a', 'b', 'c']), undefined)
   assert.equal(get(o, ['a', 'b']), 10)
   assert.equal(get([1, 2, 3], [2]), 3)
   assert.equal(get({ a: [20, 30] }, 'a.1'), 30)
 
-  var path = ['a', 'b', 'c']
+  const path = ['a', 'b', 'c']
   get(o, path)
   assert.deepEqual(path, ['a', 'b', 'c'], 'does not mutate')
 })
 
 test('set() string key', function () {
-  var o = { a: { b: 1 } }
-  var dd = new DeepDot()
+  const o = { a: { b: 1 } }
+  const dd = new DeepDot()
 
   dd.set(o, 'a.b', 2)
   assert.deepEqual(o, { a: { b: 2 } })
@@ -53,13 +55,13 @@ test('set() string key', function () {
 })
 
 test('set() array key', function () {
-  var o = { a: { b: 1 } }
-  var dd = new DeepDot()
+  const o = { a: { b: 1 } }
+  const dd = new DeepDot()
   dd.set(o, ['a', 'b'], 2)
   assert.deepEqual(o, { a: { b: 2 } })
 })
 
-test('set() cannot polute prototype', function (t) {
-  var dd = new DeepDot()
+test('set() cannot polute prototype', function () {
+  const dd = new DeepDot()
   assert.throws(() => dd.set({}, 'prototype', {}), { code: 'DEEP_DOT_UNSAFE_PROPERTY' })
 })

@@ -2,20 +2,45 @@
 
 const ModuleError = require('module-error')
 
+/**
+ * Utility class to get and set nested properties of objects and arrays.
+ */
 class DeepDot {
-  constructor (options = null) {
+  /**
+   * Create a new DeepDot instance.
+   *
+   * @param {object} [options] Options.
+   * @param {boolean} [options.cache=true] Store parsed string paths to reduce
+   * allocations.
+   */
+  constructor (options = undefined) {
+    /**
+     * Cache of parsed paths.
+     *
+     * @type {Map<string, (string | number)[]>}
+     */
+    this.cache = new Map()
+
     if (options?.cache !== false) {
-      // Public by design
-      this.cache = new Map()
+      /**
+       * Utility used by `get()` and `set()`. If the given `path` is a string
+       * then it's parsed by `path.split('.')`, else it's assumed to be already
+       * parsed and returned as-is.
+       */
       this.parse = this.parseCached
     } else {
-      this.cache = null
       this.parse = this.parseUncached
     }
   }
 
+  /**
+   * Variant of {@link parse()} that uses a cache.
+   *
+   * @param {string | (string | number)[]} path
+   * @returns {(string | number)[]}
+   */
   parseCached = (path) => {
-    if (typeof path == 'string') {
+    if (typeof path === 'string') {
       let segments = this.cache.get(path)
 
       if (segments === undefined) {
@@ -29,12 +54,27 @@ class DeepDot {
     }
   }
 
+  /**
+   * Variant of {@link parse()} that does not use a cache.
+   *
+   * @param {string | (string | number)[]} path
+   * @returns {(string | number)[]}
+   */
   parseUncached = (path) => {
-    return typeof path == 'string'
+    return typeof path === 'string'
       ? path.split('.')
       : path
   }
 
+  /**
+   * Get a nested property from `target` if not null or undefined. Returns
+   * `undefined` if a property along the path does not exist, including when
+   * `target` itself is null or undefined.
+   *
+   * @param {any} target
+   * @param {string | (string | number)[]} path
+   * @returns {any}
+   */
   get = (target, path) => {
     let i = 0
     let value = target
@@ -51,6 +91,18 @@ class DeepDot {
     return i <= last ? undefined : value
   }
 
+  /**
+   * Set a nested property in `target`. If properties along the path don't exist
+   * they will be created. If a property does exist but is not an object
+   * (meaning it cannot have children) a `DEEP_DOT_LEAF_NODE` error will be
+   * thrown. If `target` itself is null or not an object, a
+   * `DEEP_DOT_NOT_AN_OBJECT` error will be thrown.
+   *
+   * @param {{}} target
+   * @param {string | (string | number)[]} path
+   * @param {any} value
+   * @returns {void}
+   */
   set = (target, path, value) => {
     if (typeof target !== 'object' || target === null) {
       throw new ModuleError('Target must be an object', {
@@ -90,6 +142,10 @@ class DeepDot {
   }
 }
 
+/**
+ * @param {string | number | undefined} segment
+ * @returns {asserts segment is string | number}
+ */
 function validateSegment (segment) {
   if (typeof segment === 'number') {
     return
