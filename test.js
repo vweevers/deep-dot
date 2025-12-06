@@ -42,13 +42,6 @@ test('array path', function(t){
   t.end()
 })
 
-test('prop with dots in name', function(t){
-  var o = { a: { 'b.c.d': 1, b: { 'd.e': 2} }}
-  t.equal(deep(o, 'a.b.c.d'), 1)
-  t.equal(deep(o, 'a.b.d.e'), 2)
-  t.end()
-})
-
 test('weird stuff', function(t){
   var o = {s: 's', a: [20, 30]}
   t.equal(deep(o, ['s', 0]), 's')

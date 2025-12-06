@@ -10,14 +10,14 @@ var deep = require('deep-dot')
 var obj = {
   a: {
     b: {
-      'c.d': [6, '78']
+      c: [6, '78']
     }
   }
 }
 
 // basic usage
-console.log(deep(obj, 'a.b.c.d.0') === 6)
-console.log(deep(obj, 'a.b.c.d.1.1') === 8)
+console.log(deep(obj, 'a.b.c.0') === 6)
+console.log(deep(obj, 'a.b.c.1.1') === 8)
 
 // attach
 obj.deep = deep

@@ -10,9 +10,6 @@ function deep (obj_, prop_) {
   else segs = prop.slice()
 
   while (segs.length && obj != null) {
-    var direct = obj[segs.join('.')]
-    // takes precedence, even if value is null (for consistency)
-    if (direct!==undefined) return direct
     obj = obj[segs.shift()]
   }
 
